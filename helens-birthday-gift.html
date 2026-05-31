@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helen's Birthday Gift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-display:'Fraunces',Georgia,serif;
+  --font-body:'Plus Jakarta Sans',sans-serif;
+  --color-bg:#fffdf0;--color-surface:#fffef5;--color-surface-2:#fefce8;
+  --color-surface-offset:#fef9c3;--color-border:rgba(202,162,0,0.2);
+  --color-text:#1c1a08;--color-text-muted:#7a6f2a;--color-text-faint:#bfab3a;
+  --color-primary:#d4a017;--color-primary-hover:#b8880f;--color-primary-active:#9a710a;
+  --color-primary-highlight:#fef9c3;--color-accent:#e94f8a;--color-accent-hover:#c93b72;
+  --color-success:#16a34a;--color-error:#dc2626;
+  --radius-sm:0.375rem;--radius-md:0.5rem;--radius-lg:0.75rem;
+  --radius-xl:1rem;--radius-2xl:1.5rem;--radius-full:9999px;
+  --space-1:0.25rem;--space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-12:3rem;--space-16:4rem;
+  --text-xs:clamp(0.75rem,0.7rem + 0.25vw,0.875rem);
+  --text-sm:clamp(0.875rem,0.8rem + 0.35vw,1rem);
+  --text-base:clamp(1rem,0.95rem + 0.25vw,1.125rem);
+  --text-lg:clamp(1.125rem,1rem + 0.75vw,1.5rem);
+  --text-xl:clamp(1.5rem,1.2rem + 1.25vw,2.25rem);
+  --text-2xl:clamp(2rem,1.2rem + 2.5vw,3.5rem);
+  --text-hero:clamp(2.5rem,1rem + 5vw,4.5rem);
+  --shadow-sm:0 1px 2px rgba(180,140,0,0.08);
+  --shadow-md:0 4px 16px rgba(180,140,0,0.12);
+  --shadow-lg:0 12px 40px rgba(180,140,0,0.18);
+  --transition:200ms cubic-bezier(0.16,1,0.3,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth;}
+body{min-height:100dvh;font-family:var(--font-body);font-size:var(--text-base);color:var(--color-text);background:var(--color-bg);overflow-x:hidden;}
+button{cursor:pointer;border:none;background:none;font:inherit;}
+.page{display:none;min-height:100dvh;position:relative;}
+.page.active{display:flex;flex-direction:column;}
+.confetti-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.confetti-piece{position:absolute;border-radius:2px;animation:confettiFall linear infinite;opacity:0.5;}
+@keyframes confettiFall{0%{transform:translateY(-20px) rotate(0deg);opacity:0.6;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+
+/* WELCOME */
+#page-welcome{align-items:center;justify-content:center;text-align:center;padding:var(--space-8) var(--space-6);background:linear-gradient(160deg,#fffde6 0%,#fff9c2 40%,#fff3d0 100%);}
+.welcome-card{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius-2xl);padding:clamp(var(--space-8),6vw,var(--space-16));max-width:560px;width:100%;box-shadow:var(--shadow-lg);position:relative;z-index:1;}
+.peanut-emoji{font-size:clamp(3rem,8vw,5rem);display:block;margin-bottom:var(--space-4);animation:bounce 2s ease-in-out infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.welcome-greeting{font-family:var(--font-display);font-size:var(--text-hero);font-weight:900;line-height:1.1;color:var(--color-primary);margin-bottom:var(--space-6);}
+.welcome-greeting span{color:var(--color-accent);}
+.welcome-message{font-size:var(--text-base);line-height:1.8;color:var(--color-text);margin-bottom:var(--space-8);text-align:left;}
+.welcome-message strong{color:var(--color-accent);font-weight:700;}
+.stars-row{display:flex;justify-content:center;gap:var(--space-2);margin-bottom:var(--space-6);font-size:1.5rem;}
+.btn-primary{display:inline-flex;align-items:center;gap:var(--space-2);background:var(--color-accent);color:#fff;font-size:var(--text-sm);font-weight:700;padding:var(--space-4) var(--space-8);border-radius:var(--radius-full);box-shadow:0 4px 20px rgba(233,79,138,0.35);transition:all var(--transition);letter-spacing:0.02em;text-transform:uppercase;}
+.btn-primary:hover{background:var(--color-accent-hover);transform:translateY(-2px);box-shadow:0 8px 28px rgba(233,79,138,0.45);}
+.btn-gold{display:inline-flex;align-items:center;gap:var(--space-2);background:var(--color-primary);color:#fff;font-size:var(--text-sm);font-weight:700;padding:var(--space-4) var(--space-8);border-radius:var(--radius-full);box-shadow:0 4px 20px rgba(212,160,23,0.35);transition:all var(--transition);letter-spacing:0.02em;text-transform:uppercase;}
+.btn-gold:hover{background:var(--color-primary-hover);transform:translateY(-2px);}
+
+/* GAME */
+#page-game{align-items:center;padding:var(--space-6) var(--space-4);background:linear-gradient(160deg,#fffde6 0%,#fff9c2 60%,#fff3d0 100%);}
+.game-wrapper{width:100%;max-width:540px;margin:0 auto;position:relative;z-index:1;}
+.game-header{text-align:center;margin-bottom:var(--space-6);}
+.game-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:900;color:var(--color-primary);margin-bottom:var(--space-1);}
+.game-subtitle{font-size:var(--text-sm);color:var(--color-text-muted);font-weight:500;}
+.progress-bar-wrap{width:100%;height:6px;background:var(--color-surface-offset);border-radius:var(--radius-full);margin:var(--space-4) 0 var(--space-6);overflow:hidden;}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--color-primary),var(--color-accent));border-radius:var(--radius-full);transition:width 0.6s cubic-bezier(0.16,1,0.3,1);width:0%;}
+.question-card{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius-2xl);padding:var(--space-6);margin-bottom:var(--space-5);box-shadow:var(--shadow-md);}
+.q-badge{display:inline-flex;align-items:center;background:var(--color-primary-highlight);color:var(--color-primary-active);font-size:var(--text-xs);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:var(--space-1) var(--space-3);border-radius:var(--radius-full);margin-bottom:var(--space-3);}
+.q-text{font-size:var(--text-base);font-weight:600;line-height:1.5;color:var(--color-text);margin-bottom:var(--space-4);}
+.answer-hint{font-size:var(--text-xs);color:var(--color-text-muted);text-align:center;font-weight:500;margin-bottom:var(--space-3);}
+.wordle-grid{display:flex;flex-direction:column;gap:5px;margin-bottom:var(--space-4);}
+.wordle-row{display:flex;gap:4px;justify-content:center;flex-wrap:nowrap;}
+.wordle-tile{width:clamp(26px,6vw,40px);height:clamp(26px,6vw,40px);border:2px solid var(--color-border);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:clamp(0.6rem,1.6vw,0.85rem);font-weight:800;text-transform:uppercase;background:var(--color-surface-2);color:var(--color-text);transition:all 0.15s ease;}
+.wordle-tile.filled{border-color:var(--color-text-muted);animation:tilePop 0.1s ease;}
+@keyframes tilePop{0%{transform:scale(1);}50%{transform:scale(1.12);}100%{transform:scale(1);}}
+.wordle-tile.correct{background:var(--color-success);border-color:var(--color-success);color:#fff;animation:flipTile 0.4s ease forwards;}
+.wordle-tile.wrong-pos{background:#f59e0b;border-color:#f59e0b;color:#fff;animation:flipTile 0.4s ease forwards;}
+.wordle-tile.absent{background:#6b7280;border-color:#6b7280;color:#fff;animation:flipTile 0.4s ease forwards;}
+@keyframes flipTile{0%{transform:rotateX(0deg);}50%{transform:rotateX(90deg);}100%{transform:rotateX(0deg);}}
+.keyboard{display:flex;flex-direction:column;gap:5px;margin-bottom:var(--space-4);}
+.keyboard-row{display:flex;justify-content:center;gap:3px;}
+.key{min-width:clamp(22px,4.5vw,34px);height:clamp(34px,7vw,46px);padding:0 4px;border-radius:var(--radius-md);background:var(--color-surface-offset);border:1.5px solid var(--color-border);font-size:var(--text-xs);font-weight:700;color:var(--color-text);text-transform:uppercase;transition:all var(--transition);display:flex;align-items:center;justify-content:center;user-select:none;}
+.key:hover{background:var(--color-primary-highlight);border-color:var(--color-primary);}
+.key:active{transform:scale(0.93);}
+.key.wide{min-width:clamp(40px,8vw,56px);font-size:clamp(0.5rem,1.2vw,0.65rem);}
+.key.correct{background:var(--color-success);border-color:var(--color-success);color:#fff;}
+.key.wrong-pos{background:#f59e0b;border-color:#f59e0b;color:#fff;}
+.key.absent{background:#9ca3af;border-color:#9ca3af;color:#fff;}
+.feedback-msg{text-align:center;font-size:var(--text-sm);font-weight:600;min-height:1.6rem;padding:var(--space-2);border-radius:var(--radius-md);transition:all var(--transition);}
+.feedback-msg.error{color:var(--color-error);background:#fee2e2;}
+.feedback-msg.success{color:var(--color-success);background:#dcfce7;}
+.shake{animation:shakeRow 0.4s ease;}
+@keyframes shakeRow{0%,100%{transform:translateX(0);}20%{transform:translateX(-6px);}40%{transform:translateX(6px);}60%{transform:translateX(-4px);}80%{transform:translateX(4px);}}
+
+/* MESSAGE */
+#page-message{align-items:center;justify-content:center;padding:var(--space-8) var(--space-6);background:linear-gradient(160deg,#fffde6 0%,#fff9c2 40%,#fff3d0 100%);}
+.message-card{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius-2xl);padding:clamp(var(--space-8),6vw,var(--space-12));max-width:560px;width:100%;box-shadow:var(--shadow-lg);position:relative;z-index:1;text-align:center;}
+.message-emoji{font-size:3.5rem;display:block;margin-bottom:var(--space-4);}
+.message-title{font-family:var(--font-display);font-size:var(--text-xl);font-weight:900;color:var(--color-primary);margin-bottom:var(--space-5);}
+.message-body{font-size:var(--text-base);line-height:1.8;color:var(--color-text);text-align:left;margin-bottom:var(--space-8);}
+.message-body em{color:var(--color-accent);font-style:normal;font-weight:600;}
+
+/* REVEAL */
+#page-reveal{align-items:center;justify-content:center;padding:var(--space-8) var(--space-6);background:linear-gradient(160deg,#fffde6 0%,#fff9c2 40%,#fff3d0 100%);}
+.reveal-card{background:var(--color-surface);border:2px solid var(--color-primary);border-radius:var(--radius-2xl);padding:clamp(var(--space-8),6vw,var(--space-12));max-width:560px;width:100%;box-shadow:var(--shadow-lg),0 0 0 6px rgba(212,160,23,0.1);position:relative;z-index:1;text-align:center;animation:revealPop 0.6s cubic-bezier(0.16,1,0.3,1) both;}
+@keyframes revealPop{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
+.reveal-title{font-family:var(--font-display);font-size:var(--text-2xl);font-weight:900;color:var(--color-primary);line-height:1.1;margin-bottom:var(--space-6);}
+.reveal-gifts{display:flex;flex-direction:column;gap:var(--space-4);margin-bottom:var(--space-8);}
+.reveal-gift-item{display:flex;align-items:center;gap:var(--space-4);background:var(--color-surface-2);border:1.5px solid var(--color-border);border-radius:var(--radius-xl);padding:var(--space-4) var(--space-5);text-align:left;animation:slideIn 0.5s cubic-bezier(0.16,1,0.3,1) both;}
+.reveal-gift-item:nth-child(2){animation-delay:0.15s;}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+.gift-icon{font-size:2.5rem;flex-shrink:0;}
+.gift-text strong{display:block;font-size:var(--text-base);font-weight:700;color:var(--color-text);margin-bottom:2px;}
+.gift-text span{font-size:var(--text-sm);color:var(--color-text-muted);}
+.reveal-footer{font-family:var(--font-display);font-size:var(--text-lg);font-weight:700;color:var(--color-accent);}
+
+@media(max-width:480px){
+  .welcome-card,.message-card,.reveal-card{padding:var(--space-6) var(--space-4);}
+  .question-card{padding:var(--space-4) var(--space-3);}
+}
+</style>
+</head>
+<body>
+<div class="confetti-bg" id="confettiBg"></div>
+
+<section class="page active" id="page-welcome">
+  <div class="welcome-card">
+    <span class="peanut-emoji">&#x1F95C;</span>
+    <div class="stars-row">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</div>
+    <h1 class="welcome-greeting">Hi <span>Peanut</span>,</h1>
+    <div class="welcome-message">
+      <p>To unlock your birthday gift you will need to complete this task.</p><br>
+      <p>Think of it as a <strong>birthday quest</strong> &mdash; just for you &#x1F382;</p><br>
+      <p>Ready for your challenge?</p>
+    </div>
+    <button class="btn-primary" onclick="showPage('page-game')">Yes, I&apos;m ready! &#x1F389;</button>
+  </div>
+</section>
+
+<section class="page" id="page-game">
+  <div class="game-wrapper">
+    <div class="game-header">
+      <h2 class="game-title">&#x1F95C; Peanut Wordle</h2>
+      <p class="game-subtitle">4 challenges &middot; crack the code to claim your gift</p>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressBar"></div></div>
+    <div id="gameContainer"></div>
+  </div>
+</section>
+
+<section class="page" id="page-message">
+  <div class="message-card">
+    <span class="message-emoji">&#x1F478;</span>
+    <h2 class="message-title">You cracked it, Queen!</h2>
+    <div class="message-body">
+      <p>This year booking an experience was hard giving your busy agenda with visitors, weekend celebration with friends, <em>Rock in Rio</em>, <em>Harry Styles</em> and summer holidays.</p>
+      <br>
+      <p>Due to that your present will take place in <em>&#x1F1EC;&#x1F1E7; UK</em> in a weekend of your choice, queen &#x1F478;</p>
+      <br>
+      <p>We will do something together that I hope you like very much.</p>
+    </div>
+    <button class="btn-gold" onclick="showReveal()">&#x1F381; Unlock Your Gift</button>
+  </div>
+</section>
+
+<section class="page" id="page-reveal">
+  <div class="reveal-card">
+    <h2 class="reveal-title">&#x1F38A; Your Birthday Gift &#x1F38A;</h2>
+    <div class="reveal-gifts">
+      <div class="reveal-gift-item">
+        <span class="gift-icon">&#x1F3AD;</span>
+        <div class="gift-text">
+          <strong>West End Musical</strong>
+          <span>A night of theatre in London &mdash; your pick!</span>
+        </div>
+      </div>
+      <div class="reveal-gift-item">
+        <span class="gift-icon">&#x1F35B;</span>
+        <div class="gift-text">
+          <strong>Dinner at your favourite Indian restaurant</strong>
+          <span>The perfect end to a perfect night &#x1F336;&#xFE0F;</span>
+        </div>
+      </div>
+    </div>
+    <p class="reveal-footer">Happy Birthday Helen &#x1F95C;&#x1F49B;</p>
+  </div>
+</section>
+
+<script>
+var QUESTIONS=[
+  {clue:"&#x1F374; The restaurant from last year's birthday celebration",answer:"SRUVA",display:"SR.UVA",hint:"5 letters (the dot is just decoration)"},
+  {clue:"&#x1F382; How do you say 'Happy Birthday' in Portuguese?",answer:"FELIZANIVERSARIO",display:"FELIZ ANIVERSARIO",hint:"16 letters (ignore the space)"},
+  {clue:"&#x2600;&#xFE0F; Next year, the birthday celebration and summer break could be in...",answer:"BRASIL",display:"BRASIL",hint:"6 letters"},
+  {clue:"&#x2764;&#xFE0F; The best person you can celebrate your birthday with",answer:"FELIPE",display:"FELIPE",hint:"6 letters"}
+];
+var MAX_ATTEMPTS=6;
+var currentQ=0,currentAttempt=0,currentInput="",gameOver=false;
+
+function showPage(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function showReveal(){showPage('page-reveal');launchCelebration();}
+
+function makeConfetti(n,clear){
+  var colors=['#d4a017','#e94f8a','#facc15','#4ade80','#60a5fa','#f472b6'];
+  var bg=document.getElementById('confettiBg');
+  if(clear)bg.innerHTML='';
+  for(var i=0;i<n;i++){
+    var el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.left=Math.random()*100+'vw';
+    el.style.animationDuration=(3+Math.random()*5)+'s';
+    el.style.animationDelay=(Math.random()*6)+'s';
+    el.style.background=colors[Math.floor(Math.random()*colors.length)];
+    var s=(6+Math.random()*8)+'px';
+    el.style.width=s;el.style.height=s;
+    el.style.borderRadius=Math.random()>0.5?'50%':'2px';
+    bg.appendChild(el);
+  }
+}
+function launchCelebration(){makeConfetti(80,true);}
+
+function buildQuestion(qi){
+  var q=QUESTIONS[qi];
+  var ans=q.answer;
+  currentAttempt=0;currentInput='';gameOver=false;
+  var container=document.getElementById('gameContainer');
+  container.innerHTML='';
+  var card=document.createElement('div');card.className='question-card';
+  var badge=document.createElement('div');badge.className='q-badge';
+  badge.textContent='Question '+(qi+1)+' / '+QUESTIONS.length;
+  card.appendChild(badge);
+  var qText=document.createElement('div');qText.className='q-text';
+  qText.innerHTML=q.clue;card.appendChild(qText);
+  var hint=document.createElement('div');hint.className='answer-hint';
+  hint.textContent='Hint: '+q.hint;card.appendChild(hint);
+  var gridEl=document.createElement('div');gridEl.className='wordle-grid';gridEl.id='wordleGrid';
+  for(var r=0;r<MAX_ATTEMPTS;r++){
+    var row=document.createElement('div');row.className='wordle-row';row.id='row-'+r;
+    for(var c=0;c<ans.length;c++){
+      var tile=document.createElement('div');tile.className='wordle-tile';tile.id='tile-'+r+'-'+c;
+      row.appendChild(tile);
+    }
+    gridEl.appendChild(row);
+  }
+  card.appendChild(gridEl);
+  var fb=document.createElement('div');fb.className='feedback-msg';fb.id='feedback';
+  card.appendChild(fb);
+  container.appendChild(card);
+  buildKeyboard(container);
+  updateProgress();
+}
+
+function buildKeyboard(container){
+  var rows=[['Q','W','E','R','T','Y','U','I','O','P'],['A','S','D','F','G','H','J','K','L'],['ENTER','Z','X','C','V','B','N','M','DEL']];
+  var kbEl=document.createElement('div');kbEl.className='keyboard';kbEl.id='keyboard';
+  rows.forEach(function(row){
+    var rowEl=document.createElement('div');rowEl.className='keyboard-row';
+    row.forEach(function(key){
+      var btn=document.createElement('button');
+      btn.className='key'+(key==='ENTER'||key==='DEL'?' wide':'');
+      btn.textContent=key;btn.id='key-'+key;btn.setAttribute('data-key',key);
+      btn.addEventListener('click',function(){handleKey(key);});
+      rowEl.appendChild(btn);
+    });
+    kbEl.appendChild(rowEl);
+  });
+  container.appendChild(kbEl);
+}
+
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('page-game').classList.contains('active'))return;
+  if(e.key==='Enter')handleKey('ENTER');
+  else if(e.key==='Backspace')handleKey('DEL');
+  else if(/^[a-zA-Z]$/.test(e.key))handleKey(e.key.toUpperCase());
+});
+
+function handleKey(key){
+  if(gameOver)return;
+  var ans=QUESTIONS[currentQ].answer;
+  if(key==='DEL'){
+    if(currentInput.length>0){currentInput=currentInput.slice(0,-1);updateCurrentRow();}
+  } else if(key==='ENTER'){
+    if(currentInput.length<ans.length){
+      showFeedback('Need '+ans.length+' letters! ('+currentInput.length+'/'+ans.length+')','error');
+      shakeCurrentRow();return;
+    }
+    submitGuess();
+  } else if(/^[A-Z]$/.test(key)){
+    if(currentInput.length<ans.length){currentInput+=key;updateCurrentRow();}
+  }
+}
+
+function updateCurrentRow(){
+  var ans=QUESTIONS[currentQ].answer;
+  for(var c=0;c<ans.length;c++){
+    var tile=document.getElementById('tile-'+currentAttempt+'-'+c);
+    if(tile){tile.textContent=currentInput[c]||'';if(currentInput[c])tile.classList.add('filled');else tile.classList.remove('filled');}
+  }
+}
+
+function submitGuess(){
+  var q=QUESTIONS[currentQ];var ans=q.answer;var guess=currentInput;
+  var result=evaluateGuess(guess,ans);
+  for(var c=0;c<ans.length;c++){
+    (function(col,res){
+      var tile=document.getElementById('tile-'+currentAttempt+'-'+col);
+      if(!tile)return;
+      setTimeout(function(){tile.classList.remove('filled');tile.classList.add(res);},col*70);
+    })(c,result[c]);
+  }
+  for(var c=0;c<guess.length;c++){
+    var keyEl=document.getElementById('key-'+guess[c]);
+    if(keyEl&&!keyEl.classList.contains('correct')){
+      keyEl.classList.remove('wrong-pos','absent');
+      if(result[c]==='correct')keyEl.classList.add('correct');
+      else if(result[c]==='wrong-pos')keyEl.classList.add('wrong-pos');
+      else if(result[c]==='absent')keyEl.classList.add('absent');
+    }
+  }
+  var won=result.every(function(r){return r==='correct';});
+  currentAttempt++;currentInput='';
+  var totalDelay=ans.length*70+250;
+  if(won){
+    gameOver=true;
+    setTimeout(function(){
+      showFeedback('Brilliant! &#x1F389;','success');
+      setTimeout(function(){
+        if(currentQ<QUESTIONS.length-1){currentQ++;buildQuestion(currentQ);}
+        else{updateProgress(true);setTimeout(function(){showPage('page-message');},800);}
+      },900);
+    },totalDelay);
+  } else if(currentAttempt>=MAX_ATTEMPTS){
+    gameOver=true;
+    setTimeout(function(){
+      showFeedback('The answer was: '+q.display,'error');
+      setTimeout(function(){
+        if(currentQ<QUESTIONS.length-1){currentQ++;buildQuestion(currentQ);}
+        else{updateProgress(true);setTimeout(function(){showPage('page-message');},800);}
+      },2200);
+    },totalDelay);
+  } else {
+    setTimeout(function(){showFeedback('','');},totalDelay);
+  }
+}
+
+function evaluateGuess(guess,answer){
+  var result=[];for(var i=0;i<answer.length;i++)result.push('absent');
+  var ansArr=answer.split(''),guessArr=guess.split('');
+  var usedAns=[],usedGuess=[];
+  for(var i=0;i<answer.length;i++){usedAns.push(false);usedGuess.push(false);}
+  for(var i=0;i<answer.length;i++){if(guessArr[i]===ansArr[i]){result[i]='correct';usedAns[i]=true;usedGuess[i]=true;}}
+  for(var i=0;i<guess.length;i++){
+    if(usedGuess[i])continue;
+    for(var j=0;j<answer.length;j++){
+      if(!usedAns[j]&&guessArr[i]===ansArr[j]){result[i]='wrong-pos';usedAns[j]=true;break;}
+    }
+  }
+  return result;
+}
+
+function shakeCurrentRow(){
+  var row=document.getElementById('row-'+currentAttempt);
+  if(row){row.classList.add('shake');setTimeout(function(){row.classList.remove('shake');},500);}
+}
+function showFeedback(msg,type){
+  var el=document.getElementById('feedback');if(!el)return;
+  el.innerHTML=msg;el.className='feedback-msg'+(type?' '+type:'');
+}
+function updateProgress(complete){
+  var pct=complete?100:(currentQ/QUESTIONS.length)*100;
+  document.getElementById('progressBar').style.width=pct+'%';
+}
+
+makeConfetti(30,false);
+buildQuestion(0);
+</script>
+</body>
+</html>
